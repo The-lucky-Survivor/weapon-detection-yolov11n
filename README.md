@@ -19,7 +19,7 @@ Here is a comparison between raw input and the model's detection output:
 
 | **Original Input** | **YOLOv11 Detection** |
 |:------------------:|:---------------------:|
-| <img src="assets/sample_raw1.jpg" width="400" alt="Raw Image1"> | <img src="assets/sample_result1.jpg" width="400" alt="Detected Image1"> |
+| <img src="assets/sample_raw1..jpg" width="400" alt="Raw Image1"> | <img src="assets/sample_result1.jpg" width="400" alt="Detected Image1"> |
 | *Original Scene* | *Detected* |
 | <img src="assets/sample_raw2.jpg" width="400" alt="Raw Image2"> | <img src="assets/sample_result2.jpg" width="400" alt="Detected Image2"> |
 | *Original Scene* | *Detected* |
