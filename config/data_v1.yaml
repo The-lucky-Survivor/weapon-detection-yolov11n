@@ -1,0 +1,7 @@
+path: weapon-detection\datasets\dataset_v1  # dataset root dir
+train: images/train  
+val: images/val      
+test: images/test    
+
+nc: 3
+names: ['knife', 'pistol', 'rifle']
