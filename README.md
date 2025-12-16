@@ -100,8 +100,7 @@ data/
 | 2  | Rifle  |
 
 Each label file follows:
-<class_id><x_center>
-<y_center><width><height>
+2. **Labels:** `.txt` files containing: `<class_id> <x_center> <y_center> <width> <height>`
 
 ---
 
