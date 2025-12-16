@@ -56,13 +56,51 @@ yolov11-weapon-detection/
 
 ---
 
-## 🧠 Classes
+## 📊 Dataset
+
+⚠️ **The dataset is NOT included in this repository due to its large size (~2GB).**
+
+The dataset is hosted externally on **Google Drive**.
+
+### 📥 Dataset Download
+
+Download the dataset from: 
+https://drive.google.com/drive/folders/1eMlcL_0mKTWzchAIJpI47LIJSjqRIxtD?usp=sharing
+
+
+After downloading, extract it so the folder structure matches:
+```
+data/
+├── images/
+│ ├── train/
+│ ├── val/
+│ └── test/
+│
+├── labels/
+│ ├── train/
+│ ├── val/
+│ └── test/
+```
+
+
+📌 The `data/` folder is ignored in `.gitignore`.
+
+---
+
+## 🧠 Dataset Details
+
+- Size: ~2GB
+- Annotation format: YOLO
+- Classes
 
 | ID | Name   |
 |----|--------|
 | 0  | Knife  |
 | 1  | Pistol |
 | 2  | Rifle  |
+
+Each label file follows:
+<class_id> <x_center> <y_center> <width> <height>
 
 ---
 
