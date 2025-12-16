@@ -13,6 +13,22 @@ The project is structured following **best practices** for machine learning proj
 
 ---
 
+## 📸 Detection Demos
+
+Here is a comparison between raw input and the model's detection output:
+
+| **Original Input** | **YOLOv11 Detection** |
+|:------------------:|:---------------------:|
+| <img src="assets/sample_raw1.jpg" width="400" alt="Raw Image"> | <img src="assets/sample_result1.jpg" width="400" alt="Detected Image"> |
+| *Original Scene* | *Detected* |
+| <img src="assets/sample_raw2.jpg" width="400" alt="Raw Rifle"> | <img src="assets/sample_results2.jpg" width="400" alt="Detected Rifle"> |
+| *Original Scene* | *Detected* |
+| <img src="assets/sample_raw3.jpg" width="400" alt="Raw Rifle"> | <img src="assets/sample_results3.jpg" width="400" alt="Detected Rifle"> |
+| *Original Scene* | *Detected* |
+
+---
+
+
 ## 📁 Project Structure
 
 ```
