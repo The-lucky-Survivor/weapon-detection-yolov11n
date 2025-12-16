@@ -24,7 +24,6 @@ Here is a comparison between raw input and the model's detection output:
 | <img src="assets/sample_raw2.jpg" width="400" alt="Raw Rifle"> | <img src="assets/sample_results2.jpg" width="400" alt="Detected Rifle"> |
 | *Original Scene* | *Detected* |
 | <img src="assets/sample_raw3.jpg" width="400" alt="Raw Rifle"> | <img src="assets/sample_results3.jpg" width="400" alt="Detected Rifle"> |
-| *Original Scene* | *Detected* |
 
 ---
 
