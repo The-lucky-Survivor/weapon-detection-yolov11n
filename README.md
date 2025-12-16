@@ -19,11 +19,11 @@ Here is a comparison between raw input and the model's detection output:
 
 | **Original Input** | **YOLOv11 Detection** |
 |:------------------:|:---------------------:|
-| <img src="assets/sample_raw1.jpg" width="400" alt="Raw Image"> | <img src="assets/sample_result1.jpg" width="400" alt="Detected Image"> |
+| <img src="assets/sample_raw1.jpg" width="400" alt="Raw Image1"> | <img src="assets/sample_result1.jpg" width="400" alt="Detected Image1"> |
 | *Original Scene* | *Detected* |
-| <img src="assets/sample_raw2.jpg" width="400" alt="Raw Rifle"> | <img src="assets/sample_results2.jpg" width="400" alt="Detected Rifle"> |
+| <img src="assets/sample_raw2.jpg" width="400" alt="Raw Image2"> | <img src="assets/sample_result2.jpg" width="400" alt="Detected Image2"> |
 | *Original Scene* | *Detected* |
-| <img src="assets/sample_raw3.jpg" width="400" alt="Raw Rifle"> | <img src="assets/sample_results3.jpg" width="400" alt="Detected Rifle"> |
+| <img src="assets/sample_raw3.jpg" width="400" alt="Raw Image3"> | <img src="assets/sample_result3.jpg" width="400" alt="Detected Image3"> |
 
 ---
 
