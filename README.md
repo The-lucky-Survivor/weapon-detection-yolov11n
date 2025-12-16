@@ -145,13 +145,13 @@ Here is a comparison between raw input and the model's detection output:
 
 | **Before Tuning** | **After Tuning** |
 |:------------------:|:---------------------:|
-| <img src="assets/sample_base1.jpg" width="400" alt="Raw Image1"> | <img src="assets/sample_tune1.jpg" width="400" alt="Detected Image1"> |
+| <img src="inference_results/baseline/sample_base1.jpg" width="400" alt="Raw Image1"> | <img src="inference_results/finetune/sample_tune1.jpg" width="400" alt="Detected Image1"> |
 | *Before* | *After* |
-| <img src="assets/sample_base2.jpg" width="400" alt="Raw Image2"> | <img src="assets/sample_tune2.jpg" width="400" alt="Detected Image2"> |
+| <img src="inference_results/baseline/sample_base2.jpg" width="400" alt="Raw Image2"> | <img src="inference_results/finetune/sample_tune2.jpg" width="400" alt="Detected Image2"> |
 | *Before* | *After* |
-| <img src="assets/sample_base3.jpg" width="400" alt="Raw Image3"> | <img src="assets/sample_tune3.jpg" width="400" alt="Detected Image3"> |
+| <img src="inference_results/baseline/sample_base3.jpg" width="400" alt="Raw Image3"> | <img src="inference_results/finetune/sample_tune3.jpg" width="400" alt="Detected Image3"> |
 | *Before* | *After* |
-| <img src="assets/sample_base4.jpg" width="400" alt="Raw Image3"> | <img src="assets/sample_tune4.jpg" width="400" alt="Detected Image3"> |
+| <img src="inference_results/baseline/sample_base4.jpg" width="400" alt="Raw Image3"> | <img src="inference_results/finetune/sample_tune4.jpg" width="400" alt="Detected Image3"> |
 
 ---
 
