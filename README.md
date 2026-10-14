@@ -1,9 +1,9 @@
-# 🔫 YOLOv11 Weapon Detection System
+# YOLOv11 Weapon Detection System
 
 A complete **weapon detection system** built using **YOLOv11**, capable of detecting:
-- 🗡️ Knife
-- 🔫 Pistol
-- 🪖 Rifle
+-  Knife
+-  Pistol
+-  Rifle
 
 The project is structured following **best practices** for machine learning projects and is ready for:
 - Training & fine-tuning
@@ -104,6 +104,7 @@ data/
 
 ## 🧠 Dataset Details
 
+- images: ~33K
 - Size: ~2GB
 - Annotation format: YOLO
 - Classes
