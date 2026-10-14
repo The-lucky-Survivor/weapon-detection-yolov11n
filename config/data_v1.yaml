@@ -1,7 +1,13 @@
-path: weapon-detection\datasets\dataset_v1  # dataset root dir
-train: images/train  
-val: images/val      
-test: images/test    
+# data_v1.yaml — Dataset configuration for Stage 1 (baseline training)
+# Used with: src/train_v1.py
+#
+# Place this repository's root as your working directory when training,
+# OR provide the absolute path to this file via --data.
+
+path: datasets/dataset_v1   # dataset root dir (relative to repo root)
+train: images/train
+val:   images/val
+test:  images/test
 
 nc: 3
 names: ['knife', 'pistol', 'rifle']

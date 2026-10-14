@@ -1,0 +1,86 @@
+# =============================================================================
+# .gitignore — YOLOv11 Weapon Detection
+# =============================================================================
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.installed.cfg
+*.egg
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+# Keep .ipynb notebooks; avoid committing huge temporary outputs
+
+# ── YOLO training runs ────────────────────────────────────────────────────────
+runs/
+Final_Unified_Dataset/
+weapon_yolo_project/
+
+# ── Model weights ─────────────────────────────────────────────────────────────
+# Ignore generic weights; explicitly track the repository's fine-tuned model
+*.pt
+!models/best_finetuned.pt
+*.onnx
+*.tflite
+
+# ── Datasets ──────────────────────────────────────────────────────────────────
+datasets/
+
+# ── Calibration / numpy cache files ───────────────────────────────────────────
+*.npy
+*.npz
+
+# ── Large archives ────────────────────────────────────────────────────────────
+*.zip
+*.tar.gz
+*.tar.bz2
+*.7z
+
+# ── Experiment logging ────────────────────────────────────────────────────────
+wandb/
+mlruns/
+.mlflow/
+
+# ── OS metadata ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor metadata ───────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Secrets ───────────────────────────────────────────────────────────────────
+.env*
+secrets.yaml
+secrets.json
+credentials.json
+
+# ── Scratch & temporary ───────────────────────────────────────────────────────
+tmp/
+temp/
+scratch/
+images/
+infer1.py
+inference_results/combo_result/
+inference_results/new_model/
+Weapon_Detection_Presentation.pdf
