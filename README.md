@@ -576,8 +576,6 @@ This project is licensed under the **MIT License** — see [`LICENSE`](LICENSE) 
 
 ## Author
 
-**Seif El-dein Ayman Mohammed**
-
 - GitHub: [@The-lucky-Survivor](https://github.com/The-lucky-Survivor)
 - Repository: [weapon-detection-yolov11n](https://github.com/The-lucky-Survivor/weapon-detection-yolov11n)
 
