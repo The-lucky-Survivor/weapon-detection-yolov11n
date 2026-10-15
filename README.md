@@ -30,16 +30,17 @@
 8. [Evaluation Results](#evaluation-results)
 9. [Repository Structure](#repository-structure)
 10. [Installation](#installation)
-11. [Model Weights Download](#model-weights-download)
+11. [Model Weights](#model-weights)
 12. [Inference](#inference)
 13. [Results and Samples](#results-and-samples)
-14. [Dataset Preparation Scripts](#dataset-preparation-scripts)
-15. [Technologies](#technologies)
-16. [Limitations](#limitations)
-17. [Future Work](#future-work)
-18. [Responsible Use](#responsible-use)
-19. [License](#license)
-20. [Author](#author)
+14. [Android Application](#android-application)
+15. [Dataset Preparation Scripts](#dataset-preparation-scripts)
+16. [Technologies](#technologies)
+17. [Limitations](#limitations)
+18. [Future Work](#future-work)
+19. [Responsible Use](#responsible-use)
+20. [License](#license)
+21. [Author](#author)
 
 ---
 
@@ -90,11 +91,12 @@ The following features are **implemented and verified** in the current codebase:
 - **Image inference** — single image or folder (`src/infer.py`)
 - **Video-file inference** — frame-by-frame detection with annotated output video
 - **Live-webcam inference** — real-time detection via `--source 0`
+- **Offline Android application** — real-time CameraX detection using bundled FP16 TFLite model (`android/`)
 - **Configurable confidence threshold** — `--conf` flag (default 0.35)
 - **Saving annotated results** — enabled by default, disable with `--no-save`
 - **Two-stage training pipeline** — reproducible via `src/train_v1.py` and `src/train_v2.py`
-- **ONNX export** — exported checkpoint available alongside `.pt`
-- **Ensemble/WBF inference** — `src/combo` combines two model checkpoints via Weighted Boxes Fusion
+- **ONNX and TFLite exports** — checkpoints exported for edge and mobile deployment
+- **Ensemble/WBF inference** — `src/combo.py` combines two model checkpoints via Weighted Boxes Fusion
 - **Dataset preparation scripts** — merging and train/val/test splitting utilities in `src/`
 
 ---
@@ -321,7 +323,7 @@ weapon-detection-yolov11n/
 **Excluded from this repository (.gitignore):**
 - `datasets/` — large image collections; download from original sources
 - `runs/` — full YOLO training run directories; plots copied to `assets/`
-- `*.pt`, `*.onnx` — model weights; available via GitHub Releases
+- General `*.onnx` and raw weights — core model `models/best_finetuned.pt` and mobile model `best_float16.tflite` are committed
 - `*.npy` — calibration data
 - `datasets/dataset_v3.zip` — 254 MB archive
 
@@ -367,29 +369,18 @@ pip install -r requirements.txt
 
 ---
 
-## Model Weights Download
+## Model Weights
 
-The trained checkpoint is not stored in Git due to size and GitHub limits.
-Download from GitHub Releases and place at `models/best_finetuned.pt`:
+The core fine-tuned PyTorch checkpoint (`models/best_finetuned.pt`, 5.2 MB) and the edge mobile model (`android/app/src/main/assets/best_float16.tflite`, 5.1 MB) are **included directly in this repository** and ready to use immediately upon cloning.
 
-```bash
-mkdir models
+Additional exported formats (such as ONNX and full-precision FP32 TFLite) can be exported using the provided notebooks or downloaded from GitHub Releases:
 
-python -c "
-import urllib.request
-url = 'https://github.com/The-lucky-Survivor/weapon-detection-yolov11n/releases/download/v1.0/best_finetuned.pt'
-urllib.request.urlretrieve(url, 'models/best_finetuned.pt')
-print('Downloaded: models/best_finetuned.pt')
-"
-```
-
-> Until the GitHub Release is published, copy the checkpoint from your local training output:
-> `runs/finetune_train/detect/train/weights/best.pt` → `models/best_finetuned.pt`
-
-| File | Size | Description |
-|------|-----:|-------------|
-| `best_finetuned.pt` | 5.2 MB | Best Stage-2 fine-tuned checkpoint |
-| `best_finetuned.onnx` | 10.2 MB | ONNX export of the same checkpoint |
+| File | Size | Description | Location / Source |
+|------|-----:|-------------|-------------------|
+| `best_finetuned.pt` | 5.2 MB | Best Stage-2 fine-tuned PyTorch checkpoint | Bundled in `models/best_finetuned.pt` |
+| `best_float16.tflite` | 5.1 MB | Half-precision FP16 mobile model | Bundled in `android/app/src/main/assets/` |
+| `best_finetuned.onnx` | 10.2 MB | ONNX export for cross-platform inference | [GitHub Releases](../../releases) / exportable |
+| `best_float32.tflite` | 10.1 MB | Full-precision FP32 mobile model | [GitHub Releases](../../releases) |
 
 ---
 
@@ -457,11 +448,11 @@ for r in results:
 
 ### Ensemble Inference (WBF)
 
-`src/combo` combines two model checkpoints using Weighted Boxes Fusion.
+`src/combo.py` combines two model checkpoints using Weighted Boxes Fusion.
 Edit the path variables at the top of the script, then:
 
 ```bash
-python src/combo
+python src/combo.py
 ```
 
 Requires `ensemble-boxes` (included in `requirements.txt`).
@@ -481,44 +472,6 @@ Requires `ensemble-boxes` (included in `requirements.txt`).
 **Rifle detection**
 
 ![Rifle Detection Sample](assets/inference_samples/sample_rifle_detection.jpg)
-
----
-
-## Dataset Preparation Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `src/merge_datasets.py` | Merges three raw source datasets with class remapping |
-| `src/split_images.py` | Splits unified dataset 80/15/5 into train/val/test |
-| `src/convert.py` | Converts OBB annotations to standard YOLO axis-aligned format |
-
-> These scripts contain absolute paths from the original development environment.
-> Edit the configuration variables at the top of each script before use on a new machine.
-
----
-
-## Technologies
-
-| Technology | Role |
-|------------|------|
-| [Ultralytics](https://github.com/ultralytics/ultralytics) | YOLO training, inference, and export |
-| [PyTorch](https://pytorch.org/) | Deep-learning backend |
-| [OpenCV](https://opencv.org/) | Image and video I/O |
-| [NumPy](https://numpy.org/) | Numerical computing |
-| [ensemble-boxes](https://github.com/ZFTurbo/Weighted-Boxes-Fusion) | Weighted Boxes Fusion |
-| [Kaggle](https://www.kaggle.com/) | GPU training environment |
-| Python 3.11 | Runtime |
-
----
-
-## Limitations
-
-- Trained and validated on a mixed web-sourced dataset; real-world performance varies significantly
-  with image quality, viewpoint, occlusion, and lighting.
-- Small or distant objects are harder to detect reliably.
-- Confidence scores are not calibrated probabilities.
-- The model detects appearance, not intent — it may flag props, toys, or partially visible objects.
-- Reported mAP@50 (89.7%) is a validation-split metric, not an independent test result.
 
 ---
 
@@ -545,19 +498,55 @@ in `LiveDetectionActivity.java` and `DetectionResultActivity.java`.
 
 ---
 
+## Dataset Preparation Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `src/merge_datasets.py` | Merges three raw source datasets with class remapping |
+| `src/split_images.py` | Splits unified dataset 80/15/5 into train/val/test |
+| `src/convert.py` | Converts OBB annotations to standard YOLO axis-aligned format |
+
+> These scripts contain absolute paths from the original development environment.
+> Edit the configuration variables at the top of each script before use on a new machine.
+
+---
+
+## Technologies
+
+| Technology | Role |
+|------------|------|
+| [Ultralytics](https://github.com/ultralytics/ultralytics) | YOLO training, inference, and export |
+| [PyTorch](https://pytorch.org/) | Deep-learning backend |
+| [OpenCV](https://opencv.org/) | Image and video I/O |
+| [NumPy](https://numpy.org/) | Numerical computing |
+| [ensemble-boxes](https://github.com/ZFTurbo/Weighted-Boxes-Fusion) | Weighted Boxes Fusion |
+| [TensorFlow Lite](https://www.tensorflow.org/lite) | On-device mobile inference (Android) |
+| [Android CameraX](https://developer.android.com/training/camerax) | Real-time camera feed streaming |
+| [Kaggle](https://www.kaggle.com/) | GPU training environment |
+| Python 3.11 | Runtime |
+
+---
+
+## Limitations
+
+- Trained and validated on a mixed web-sourced dataset; real-world performance varies significantly
+  with image quality, viewpoint, occlusion, and lighting.
+- Small or distant objects are harder to detect reliably.
+- Confidence scores are not calibrated probabilities.
+- The model detects appearance, not intent — it may flag props, toys, or partially visible objects.
+- Reported mAP@50 (89.7%) is a validation-split metric, not an independent test result.
+
+---
+
 ## Future Work
 
-| Status | Item |
-|--------|------|
-| ✅ Done | Android application with TFLite on-device inference (`android/`) |
-| ✅ Done | TFLite FP16 export for edge deployment (`best_float16.tflite`, 5.1 MB) |
-| ✅ Done | Portable dataset preparation scripts with relative paths |
-| ✅ Done | Per-class precision, recall, and confusion matrix in README |
-| ⏳ Pending | Publish all model weights to GitHub Releases (`.pt`, `.onnx`, `.tflite`) |
-| ⏳ Pending | Independent test-set evaluation with unbiased metrics |
-| ⏳ Pending | FastAPI or Gradio web demo |
-| ⏳ Pending | Robustness testing across diverse lighting and viewpoint conditions |
-| ⏳ Pending | TFLite INT8 quantisation (calibration data available) |
+Planned improvements and upcoming roadmap:
+
+- **Model Releases** — publish full FP32 TFLite, ONNX, and checkpoint archives to GitHub Releases
+- **Independent Evaluation** — benchmark evaluation on diverse external test sets
+- **Interactive Web Demo** — web-based interface using FastAPI and Gradio / Streamlit
+- **Environmental Robustness** — stress-testing across extreme low-light and severe occlusion conditions
+- **Quantisation & Edge Optimisation** — INT8 post-training quantisation for lower memory and faster edge inference
 
 ---
 
