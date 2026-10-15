@@ -38,6 +38,8 @@ weapon_yolo_project/
 !models/best_finetuned.pt
 *.onnx
 *.tflite
+# Allow the FP16 model bundled with the Android app (5.1 MB — within GitHub limits)
+!android/app/src/main/assets/best_float16.tflite
 
 # ── Datasets ──────────────────────────────────────────────────────────────────
 datasets/

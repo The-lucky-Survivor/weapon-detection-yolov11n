@@ -1,4 +1,4 @@
-﻿# YOLOv11 Weapon Detection System
+# YOLOv11 Weapon Detection System
 
 <p align="center">
   <img src="https://img.shields.io/badge/Model-YOLOv11m-blue?style=for-the-badge" alt="Model"/>
@@ -289,12 +289,30 @@ weapon-detection-yolov11n/
 |   +-- train_v1.py                  # Stage-1 training (portable, CLI args)
 |   +-- train_v2.py                  # Stage-2 fine-tuning (portable, CLI args)
 |   +-- infer.py                     # Inference: image / video / webcam (portable)
-|   +-- combo                        # Ensemble WBF inference (two models)
+|   +-- combo.py                     # Ensemble WBF inference (two models)
 |   +-- merge_datasets.py            # Dataset merging utility
 |   +-- split_images.py              # 80/15/5 train/val/test split utility
 |   +-- convert.py                   # OBB to axis-aligned YOLO converter
 |
++-- android/                         # Android application (Java + TFLite)
+|   +-- app/src/main/
+|   |   +-- java/com/elandlep/weapondetection/
+|   |   |   +-- MainActivity.java         # Home: image/video picker + navigation
+|   |   |   +-- LiveDetectionActivity.java  # Real-time CameraX detection
+|   |   |   +-- DetectionResultActivity.java # Detection result display
+|   |   |   +-- HistoryActivity.java       # Detection history (SQLite)
+|   |   |   +-- SettingsActivity.java      # Confidence threshold settings
+|   |   |   +-- AboutUsActivity.java       # Team info
+|   |   |   +-- YoloDetector.java          # TFLite inference engine + NMS
+|   |   +-- assets/
+|   |   |   +-- best_float16.tflite        # On-device model (5.1 MB, FP16)
+|   |   |   +-- labels.txt                 # Class names: knife, pistol, rifle
+|   |   +-- res/layout/                   # Activity layouts
+|   |   +-- AndroidManifest.xml
+|   +-- build.gradle.kts                  # CameraX + TFLite dependencies
+|
 +-- .gitignore
++-- CONTRIBUTING.md
 +-- requirements.txt
 +-- LICENSE
 +-- README.md
@@ -501,22 +519,45 @@ Requires `ensemble-boxes` (included in `requirements.txt`).
 - Confidence scores are not calibrated probabilities.
 - The model detects appearance, not intent — it may flag props, toys, or partially visible objects.
 - Reported mAP@50 (89.7%) is a validation-split metric, not an independent test result.
-- Android application source code is not currently present in this repository.
+
+---
+
+## Android Application
+
+A complete Android application is included in the [`android/`](android/) directory.
+It performs **on-device real-time weapon detection** using TensorFlow Lite without any internet connection.
+
+| Feature | Details |
+|---|---|
+| Language | Java |
+| Min SDK | Android 7.0 (API 24) |
+| Inference engine | TensorFlow Lite 2.14 + GPU delegate |
+| Camera | CameraX 1.2.3 live preview |
+| Model bundled | `best_float16.tflite` (5.1 MB, FP16) |
+| Full-precision model | `best_float32.tflite` (10.1 MB) — [download from Releases](../../releases) |
+| Screens | Live detection, image/video picker, detection history, settings, about |
+
+**To open in Android Studio:** `File → Open → android/`
+
+**To use the full-precision model:** Download `best_float32.tflite` from [Releases](../../releases),
+copy it to `android/app/src/main/assets/`, then change `"best_float16.tflite"` → `"best_float32.tflite"`
+in `LiveDetectionActivity.java` and `DetectionResultActivity.java`.
 
 ---
 
 ## Future Work
 
-*Items below are planned; none are currently implemented.*
-
-- [ ] Independent test-set evaluation with unbiased metrics
-- [ ] Per-class precision, recall, and AP table in README
-- [ ] Publish model weights to GitHub Releases
-- [ ] Android application with TFLite/ONNX Runtime on-device inference
-- [ ] FastAPI or Gradio web demo
-- [ ] Robustness testing across diverse conditions
-- [ ] TFLite export with INT8 quantisation for edge deployment
-- [ ] Portable dataset preparation scripts (relative paths)
+| Status | Item |
+|--------|------|
+| ✅ Done | Android application with TFLite on-device inference (`android/`) |
+| ✅ Done | TFLite FP16 export for edge deployment (`best_float16.tflite`, 5.1 MB) |
+| ✅ Done | Portable dataset preparation scripts with relative paths |
+| ✅ Done | Per-class precision, recall, and confusion matrix in README |
+| ⏳ Pending | Publish all model weights to GitHub Releases (`.pt`, `.onnx`, `.tflite`) |
+| ⏳ Pending | Independent test-set evaluation with unbiased metrics |
+| ⏳ Pending | FastAPI or Gradio web demo |
+| ⏳ Pending | Robustness testing across diverse lighting and viewpoint conditions |
+| ⏳ Pending | TFLite INT8 quantisation (calibration data available) |
 
 ---
 

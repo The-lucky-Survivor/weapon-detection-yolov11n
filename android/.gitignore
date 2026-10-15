@@ -1,0 +1,21 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+**/build/
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Large model files — distributed via GitHub Releases
+# app/src/main/assets/best_float32.tflite (10 MB) → download from Releases
+# Keep best_float16.tflite (5 MB) in assets for offline/quick use
+app/src/main/assets/best_float32.tflite
